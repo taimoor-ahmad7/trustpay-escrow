@@ -82,7 +82,7 @@ export async function fetchJobsForWallet(program: Program, wallet: PublicKey) {
 // fetchJobById finds one job using the human-readable job ID from the URL.
 export async function fetchJobById(program: Program, jobId: string) {
   const jobs = await fetchAllJobs(program);
-  return jobs.find((job) => job.jobId === jobId) ?? null;
+  return jobs.find((job: EscrowJobView) => job.jobId === jobId) ?? null;
 }
 
 // fetchJobByClientAndId derives the PDA directly when we know the client wallet and job ID.
