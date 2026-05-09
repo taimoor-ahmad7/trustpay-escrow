@@ -194,7 +194,7 @@ export default function JobDetailPage() {
                       const program = getProgram(connection, wallet);
                       return program.methods
                         .acceptJob()
-                        .accounts({ escrowJob: job.address, freelancer: wallet.publicKey })
+                        .accounts({ escrowJob: job.address, freelancer: wallet.publicKey! })
                         .rpc();
                     })
                   }
@@ -214,7 +214,7 @@ export default function JobDetailPage() {
                       const program = getProgram(connection, wallet);
                       return program.methods
                         .submitWork()
-                        .accounts({ escrowJob: job.address, freelancer: wallet.publicKey })
+                        .accounts({ escrowJob: job.address, freelancer: wallet.publicKey! })
                         .rpc();
                     })
                   }
@@ -234,7 +234,7 @@ export default function JobDetailPage() {
                       const program = getProgram(connection, wallet);
                       return program.methods
                         .approveRelease()
-                        .accounts({ escrowJob: job.address, client: wallet.publicKey, freelancer: job.freelancer })
+                        .accounts({ escrowJob: job.address, client: wallet.publicKey!, freelancer: job.freelancer })
                         .rpc();
                     })
                   }
@@ -254,7 +254,7 @@ export default function JobDetailPage() {
                       const program = getProgram(connection, wallet);
                       return program.methods
                         .claimRefund()
-                        .accounts({ escrowJob: job.address, client: wallet.publicKey })
+                        .accounts({ escrowJob: job.address, client: wallet.publicKey! })
                         .rpc();
                     })
                   }
@@ -274,7 +274,7 @@ export default function JobDetailPage() {
                       const program = getProgram(connection, wallet);
                       return program.methods
                         .raiseDispute()
-                        .accounts({ escrowJob: job.address, caller: wallet.publicKey })
+                        .accounts({ escrowJob: job.address, caller: wallet.publicKey! })
                         .rpc();
                     })
                   }
