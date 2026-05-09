@@ -65,7 +65,7 @@ function toJobView(raw: { publicKey: PublicKey; account: any }): EscrowJobView {
 
 // fetchAllJobs loads every EscrowJob account owned by this program.
 export async function fetchAllJobs(program: Program) {
-  const accounts = await (program.account as any).escrowJob.all();
+  const accounts: { publicKey: PublicKey; account: any }[] = await (program.account as any).escrowJob.all();
   return accounts.map(toJobView);
 }
 
