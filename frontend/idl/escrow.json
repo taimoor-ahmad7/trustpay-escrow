@@ -115,6 +115,10 @@
           "relations": [
             "escrow_job"
           ]
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
         }
       ],
       "args": []
@@ -168,6 +172,10 @@
           "relations": [
             "escrow_job"
           ]
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
         }
       ],
       "args": []
@@ -295,6 +303,72 @@
       "args": []
     },
     {
+      "name": "resolve_dispute",
+      "discriminator": [
+        231,
+        6,
+        202,
+        6,
+        96,
+        103,
+        12,
+        230
+      ],
+      "accounts": [
+        {
+          "name": "escrow_job",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  101,
+                  115,
+                  99,
+                  114,
+                  111,
+                  119
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "escrow_job.client",
+                "account": "EscrowJob"
+              },
+              {
+                "kind": "account",
+                "path": "escrow_job.job_id",
+                "account": "EscrowJob"
+              }
+            ]
+          }
+        },
+        {
+          "name": "client",
+          "writable": true
+        },
+        {
+          "name": "freelancer",
+          "writable": true
+        },
+        {
+          "name": "arbitrator",
+          "signer": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "pay_freelancer",
+          "type": "bool"
+        }
+      ]
+    },
+    {
       "name": "submit_work",
       "discriminator": [
         158,
@@ -365,8 +439,8 @@
   "errors": [
     {
       "code": 6000,
-      "name": "InvalidAmount",
-      "msg": "The escrow amount must be greater than zero."
+      "name": "AmountTooSmall",
+      "msg": "The escrow amount must be at least 0.001 SOL."
     },
     {
       "code": 6001,
@@ -375,41 +449,56 @@
     },
     {
       "code": 6002,
+      "name": "DeadlineTooFar",
+      "msg": "The deadline cannot be more than 1 year in the future."
+    },
+    {
+      "code": 6003,
+      "name": "DeadlinePassed",
+      "msg": "The deadline has passed, work can no longer be submitted."
+    },
+    {
+      "code": 6004,
       "name": "DeadlineNotPassed",
       "msg": "The deadline has not passed yet."
     },
     {
-      "code": 6003,
+      "code": 6005,
       "name": "EmptyDescription",
       "msg": "The job description cannot be empty."
     },
     {
-      "code": 6004,
+      "code": 6006,
       "name": "DescriptionTooLong",
       "msg": "The job description cannot be longer than 200 bytes."
     },
     {
-      "code": 6005,
+      "code": 6007,
+      "name": "SelfAssignment",
+      "msg": "The client and freelancer cannot be the same wallet."
+    },
+    {
+      "code": 6008,
       "name": "UnauthorizedClient",
       "msg": "Only the client for this escrow job can perform this action."
     },
     {
-      "code": 6006,
+      "code": 6009,
       "name": "UnauthorizedFreelancer",
       "msg": "Only the assigned freelancer for this escrow job can perform this action."
     },
     {
-      "code": 6007,
+      "code": 6010,
       "name": "UnauthorizedDisputer",
       "msg": "Only the client or assigned freelancer can raise a dispute."
     },
     {
-      "code": 6008,
+      "code": 6011,
       "name": "InvalidStatus",
       "msg": "This action is not allowed in the escrow job's current status."
     },
     {
-      "code": 6009,
+      "code": 6012,
       "name": "MathOverflow",
       "msg": "A lamport balance calculation failed."
     }
