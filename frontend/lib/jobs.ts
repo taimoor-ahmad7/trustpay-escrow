@@ -74,8 +74,8 @@ export async function fetchJobsForWallet(program: Program, wallet: PublicKey) {
   const jobs = await fetchAllJobs(program);
 
   return {
-    posted: jobs.filter((job) => job.client.equals(wallet)),
-    assigned: jobs.filter((job) => job.freelancer.equals(wallet))
+    posted: jobs.filter((job: EscrowJobView) => job.client.equals(wallet)),
+    assigned: jobs.filter((job: EscrowJobView) => job.freelancer.equals(wallet))
   };
 }
 
