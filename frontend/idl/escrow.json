@@ -1,0 +1,489 @@
+{
+  "address": "9e8CP55VmG48GRvLQCq9ytrofocjWy4YtCsgSSonM96R",
+  "metadata": {
+    "name": "escrow",
+    "version": "0.1.0",
+    "spec": "0.1.0",
+    "description": "Trustless freelance escrow program on Solana"
+  },
+  "instructions": [
+    {
+      "name": "accept_job",
+      "discriminator": [
+        43,
+        201,
+        124,
+        1,
+        19,
+        189,
+        96,
+        10
+      ],
+      "accounts": [
+        {
+          "name": "escrow_job",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  101,
+                  115,
+                  99,
+                  114,
+                  111,
+                  119
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "escrow_job.client",
+                "account": "EscrowJob"
+              },
+              {
+                "kind": "account",
+                "path": "escrow_job.job_id",
+                "account": "EscrowJob"
+              }
+            ]
+          }
+        },
+        {
+          "name": "freelancer",
+          "signer": true,
+          "relations": [
+            "escrow_job"
+          ]
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "approve_release",
+      "discriminator": [
+        110,
+        173,
+        58,
+        175,
+        146,
+        128,
+        138,
+        255
+      ],
+      "accounts": [
+        {
+          "name": "escrow_job",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  101,
+                  115,
+                  99,
+                  114,
+                  111,
+                  119
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "escrow_job.client",
+                "account": "EscrowJob"
+              },
+              {
+                "kind": "account",
+                "path": "escrow_job.job_id",
+                "account": "EscrowJob"
+              }
+            ]
+          }
+        },
+        {
+          "name": "client",
+          "writable": true,
+          "signer": true,
+          "relations": [
+            "escrow_job"
+          ]
+        },
+        {
+          "name": "freelancer",
+          "writable": true,
+          "relations": [
+            "escrow_job"
+          ]
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "claim_refund",
+      "discriminator": [
+        15,
+        16,
+        30,
+        161,
+        255,
+        228,
+        97,
+        60
+      ],
+      "accounts": [
+        {
+          "name": "escrow_job",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  101,
+                  115,
+                  99,
+                  114,
+                  111,
+                  119
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "escrow_job.client",
+                "account": "EscrowJob"
+              },
+              {
+                "kind": "account",
+                "path": "escrow_job.job_id",
+                "account": "EscrowJob"
+              }
+            ]
+          }
+        },
+        {
+          "name": "client",
+          "writable": true,
+          "signer": true,
+          "relations": [
+            "escrow_job"
+          ]
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "create_escrow",
+      "discriminator": [
+        253,
+        215,
+        165,
+        116,
+        36,
+        108,
+        68,
+        80
+      ],
+      "accounts": [
+        {
+          "name": "escrow_job",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  101,
+                  115,
+                  99,
+                  114,
+                  111,
+                  119
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "client"
+              },
+              {
+                "kind": "arg",
+                "path": "job_id"
+              }
+            ]
+          }
+        },
+        {
+          "name": "client",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "job_id",
+          "type": "u64"
+        },
+        {
+          "name": "freelancer",
+          "type": "pubkey"
+        },
+        {
+          "name": "amount",
+          "type": "u64"
+        },
+        {
+          "name": "deadline",
+          "type": "i64"
+        },
+        {
+          "name": "description",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "raise_dispute",
+      "discriminator": [
+        41,
+        243,
+        1,
+        51,
+        150,
+        95,
+        246,
+        73
+      ],
+      "accounts": [
+        {
+          "name": "escrow_job",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  101,
+                  115,
+                  99,
+                  114,
+                  111,
+                  119
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "escrow_job.client",
+                "account": "EscrowJob"
+              },
+              {
+                "kind": "account",
+                "path": "escrow_job.job_id",
+                "account": "EscrowJob"
+              }
+            ]
+          }
+        },
+        {
+          "name": "caller",
+          "signer": true
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "submit_work",
+      "discriminator": [
+        158,
+        80,
+        101,
+        51,
+        114,
+        130,
+        101,
+        253
+      ],
+      "accounts": [
+        {
+          "name": "escrow_job",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  101,
+                  115,
+                  99,
+                  114,
+                  111,
+                  119
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "escrow_job.client",
+                "account": "EscrowJob"
+              },
+              {
+                "kind": "account",
+                "path": "escrow_job.job_id",
+                "account": "EscrowJob"
+              }
+            ]
+          }
+        },
+        {
+          "name": "freelancer",
+          "signer": true,
+          "relations": [
+            "escrow_job"
+          ]
+        }
+      ],
+      "args": []
+    }
+  ],
+  "accounts": [
+    {
+      "name": "EscrowJob",
+      "discriminator": [
+        101,
+        7,
+        85,
+        2,
+        161,
+        0,
+        156,
+        177
+      ]
+    }
+  ],
+  "errors": [
+    {
+      "code": 6000,
+      "name": "InvalidAmount",
+      "msg": "The escrow amount must be greater than zero."
+    },
+    {
+      "code": 6001,
+      "name": "DeadlineInPast",
+      "msg": "The deadline must be in the future."
+    },
+    {
+      "code": 6002,
+      "name": "DeadlineNotPassed",
+      "msg": "The deadline has not passed yet."
+    },
+    {
+      "code": 6003,
+      "name": "EmptyDescription",
+      "msg": "The job description cannot be empty."
+    },
+    {
+      "code": 6004,
+      "name": "DescriptionTooLong",
+      "msg": "The job description cannot be longer than 200 bytes."
+    },
+    {
+      "code": 6005,
+      "name": "UnauthorizedClient",
+      "msg": "Only the client for this escrow job can perform this action."
+    },
+    {
+      "code": 6006,
+      "name": "UnauthorizedFreelancer",
+      "msg": "Only the assigned freelancer for this escrow job can perform this action."
+    },
+    {
+      "code": 6007,
+      "name": "UnauthorizedDisputer",
+      "msg": "Only the client or assigned freelancer can raise a dispute."
+    },
+    {
+      "code": 6008,
+      "name": "InvalidStatus",
+      "msg": "This action is not allowed in the escrow job's current status."
+    },
+    {
+      "code": 6009,
+      "name": "MathOverflow",
+      "msg": "A lamport balance calculation failed."
+    }
+  ],
+  "types": [
+    {
+      "name": "EscrowJob",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "job_id",
+            "type": "u64"
+          },
+          {
+            "name": "client",
+            "type": "pubkey"
+          },
+          {
+            "name": "freelancer",
+            "type": "pubkey"
+          },
+          {
+            "name": "amount",
+            "type": "u64"
+          },
+          {
+            "name": "deadline",
+            "type": "i64"
+          },
+          {
+            "name": "status",
+            "type": {
+              "defined": {
+                "name": "EscrowStatus"
+              }
+            }
+          },
+          {
+            "name": "description",
+            "type": "string"
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "EscrowStatus",
+      "type": {
+        "kind": "enum",
+        "variants": [
+          {
+            "name": "Open"
+          },
+          {
+            "name": "InProgress"
+          },
+          {
+            "name": "Submitted"
+          },
+          {
+            "name": "Completed"
+          },
+          {
+            "name": "Disputed"
+          },
+          {
+            "name": "Refunded"
+          }
+        ]
+      }
+    }
+  ]
+}

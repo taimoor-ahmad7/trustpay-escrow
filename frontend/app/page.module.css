@@ -1,0 +1,241 @@
+.hero {
+  align-items: center;
+  animation: riseIn 0.55s ease both;
+  background:
+    linear-gradient(135deg, rgba(15, 118, 110, 0.96), rgba(20, 83, 45, 0.92)),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.1), transparent);
+  border: 1px solid rgba(255, 255, 255, 0.32);
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+  color: white;
+  display: grid;
+  gap: 22px;
+  grid-template-columns: minmax(0, 1fr) minmax(340px, 0.78fr);
+  justify-content: space-between;
+  margin-bottom: 18px;
+  overflow: hidden;
+  padding: 28px;
+  position: relative;
+}
+
+.heroText {
+  display: grid;
+  gap: 10px;
+  max-width: 680px;
+  position: relative;
+  z-index: 1;
+}
+
+.heroText h2 {
+  font-size: 42px;
+  line-height: 1.2;
+  margin: 0;
+}
+
+.heroText p {
+  color: rgba(255, 255, 255, 0.78);
+  margin: 0;
+  max-width: 640px;
+}
+
+.eyebrow {
+  color: #fde68a;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.heroVisual {
+  align-items: center;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  border-radius: 8px;
+  display: grid;
+  gap: 12px;
+  grid-template-columns: 1fr;
+  min-height: 190px;
+  padding: 18px;
+}
+
+.flowNode {
+  animation: floatSoft 3.8s ease-in-out infinite;
+  background: rgba(255, 255, 255, 0.94);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  border-radius: 8px;
+  color: var(--ink);
+  font-weight: 800;
+  padding: 12px;
+  text-align: center;
+}
+
+.flowNode:nth-child(3) {
+  animation-delay: 0.28s;
+}
+
+.flowNode:nth-child(5) {
+  animation-delay: 0.56s;
+}
+
+.flowRail {
+  background: rgba(255, 255, 255, 0.22);
+  border-radius: 999px;
+  height: 8px;
+  overflow: hidden;
+  position: relative;
+}
+
+.flowPulse {
+  animation: movePulse 1.7s ease-in-out infinite;
+  background: #fde68a;
+  border-radius: 999px;
+  display: block;
+  height: 100%;
+  width: 34%;
+}
+
+.stats {
+  animation: riseIn 0.55s ease 0.08s both;
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(4, 1fr);
+  margin-bottom: 24px;
+}
+
+.stat,
+.createCard {
+  background: rgba(255, 255, 255, 0.84);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  box-shadow: var(--shadow-soft);
+  min-height: 86px;
+  padding: 16px;
+}
+
+.stat {
+  display: grid;
+  gap: 8px;
+}
+
+.stat strong {
+  font-size: 28px;
+}
+
+.statLabel {
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.createCard {
+  background: linear-gradient(135deg, var(--primary), #14532d);
+  border-color: rgba(15, 118, 110, 0.34);
+  color: white;
+  min-height: 86px;
+}
+
+.grid {
+  display: grid;
+  gap: 22px;
+  grid-template-columns: 1fr 1fr;
+}
+
+.section {
+  animation: riseIn 0.55s ease 0.14s both;
+  display: grid;
+  gap: 12px;
+}
+
+.sectionHeader {
+  align-items: center;
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 14px;
+}
+
+.sectionHeader h3 {
+  font-size: 18px;
+  margin: 0;
+}
+
+.jobs {
+  display: grid;
+  gap: 12px;
+}
+
+.empty {
+  animation: fadeIn 0.35s ease both;
+  background: rgba(255, 255, 255, 0.74);
+  border: 1px dashed var(--line);
+  border-radius: 8px;
+  color: var(--muted);
+  padding: 18px;
+}
+
+.loading {
+  align-items: center;
+  display: flex;
+  gap: 10px;
+}
+
+@keyframes riseIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes movePulse {
+  0% {
+    transform: translateX(-110%);
+  }
+
+  100% {
+    transform: translateX(310%);
+  }
+}
+
+@keyframes floatSoft {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+@media (max-width: 900px) {
+  .hero,
+  .grid,
+  .stats {
+    grid-template-columns: 1fr;
+  }
+
+  .hero {
+    padding: 22px;
+  }
+
+  .heroText h2 {
+    font-size: 32px;
+  }
+}

@@ -1,0 +1,154 @@
+.layout {
+  animation: riseIn 0.5s ease both;
+  display: grid;
+  gap: 22px;
+  grid-template-columns: minmax(0, 1fr) 320px;
+}
+
+.panel {
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  box-shadow: var(--shadow-soft);
+  display: grid;
+  gap: 18px;
+  overflow: hidden;
+  padding: 18px;
+  position: relative;
+}
+
+.panel::before {
+  background: linear-gradient(90deg, var(--primary), var(--accent));
+  content: "";
+  height: 4px;
+  inset: 0 0 auto;
+  position: absolute;
+}
+
+.titleRow {
+  align-items: flex-start;
+  display: flex;
+  gap: 12px;
+  justify-content: space-between;
+}
+
+.description {
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.4;
+  margin: 0;
+  padding-top: 8px;
+}
+
+.details {
+  display: grid;
+  gap: 12px;
+}
+
+.detailRow {
+  border-top: 1px solid var(--line);
+  display: grid;
+  gap: 4px;
+  padding-top: 12px;
+  transition: background 0.2s ease, padding-left 0.2s ease;
+}
+
+.detailRow:hover {
+  background: rgba(15, 118, 110, 0.04);
+  padding-left: 8px;
+}
+
+.label {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.value {
+  overflow-wrap: anywhere;
+}
+
+.timeline {
+  border-top: 1px solid var(--line);
+  display: grid;
+  gap: 10px;
+  padding-top: 16px;
+}
+
+.timelineItem {
+  align-items: center;
+  display: grid;
+  gap: 10px;
+  grid-template-columns: 16px 1fr;
+  min-height: 26px;
+}
+
+.dot {
+  background: #d0d5dd;
+  border-radius: 999px;
+  height: 16px;
+  transition: background 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+  width: 16px;
+}
+
+.dotActive {
+  background: var(--primary);
+  box-shadow: 0 0 0 6px rgba(15, 118, 110, 0.12);
+  transform: scale(1.04);
+}
+
+.actions {
+  align-self: start;
+  animation: riseIn 0.55s ease 0.08s both;
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  box-shadow: var(--shadow-soft);
+  display: grid;
+  gap: 12px;
+  padding: 18px;
+  position: sticky;
+  top: 18px;
+}
+
+.actions h2 {
+  font-size: 18px;
+  margin: 0;
+}
+
+.actionList {
+  display: grid;
+  gap: 10px;
+}
+
+.notice {
+  color: var(--muted);
+  margin: 0;
+}
+
+.loading {
+  align-items: center;
+  display: flex;
+  gap: 10px;
+}
+
+@keyframes riseIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 900px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+
+  .actions {
+    position: static;
+  }
+}

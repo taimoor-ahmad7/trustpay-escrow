@@ -1,0 +1,42 @@
+.walletArea {
+  align-items: flex-end;
+  display: grid;
+  gap: 8px;
+  justify-items: end;
+}
+
+.address {
+  color: var(--muted);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.walletButton {
+  align-items: center;
+  background: var(--ink);
+  border: 1px solid var(--ink);
+  border-radius: 8px;
+  box-shadow: 0 12px 24px rgba(17, 24, 39, 0.16);
+  color: white;
+  display: inline-flex;
+  font-weight: 700;
+  justify-content: center;
+  min-height: 42px;
+  min-width: 148px;
+  padding: 10px 14px;
+  transition: background 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.walletButton:hover {
+  background: #243041;
+  box-shadow: 0 16px 30px rgba(17, 24, 39, 0.22);
+  transform: translateY(-1px);
+}
+
+@media (max-width: 720px) {
+  .walletArea {
+    align-items: flex-start;
+    justify-items: start;
+    width: 100%;
+  }
+}
