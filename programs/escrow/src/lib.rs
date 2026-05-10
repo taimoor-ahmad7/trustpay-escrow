@@ -65,22 +65,8 @@ pub mod escrow {
         let escrow_job = &mut ctx.accounts.escrow_job;
         require!(escrow_job.status == EscrowStatus::Submitted, EscrowError::InvalidStatus);
         let amount = escrow_job.amount;
-        let bump = escrow_job.bump;
-        let client_key = escrow_job.client;
-        let job_id_bytes = escrow_job.job_id.to_le_bytes();
-        let bump_arr = [bump];
-        let seeds: &[&[u8]] = &[b"escrow", client_key.as_ref(), job_id_bytes.as_ref(), &bump_arr];
-        let signer_seeds: &[&[&[u8]]] = &[seeds];
-        let transfer_accounts = system_program::Transfer {
-            from: ctx.accounts.escrow_job.to_account_info(),
-            to: ctx.accounts.freelancer.to_account_info(),
-        };
-        let transfer_context = CpiContext::new_with_signer(
-            ctx.accounts.system_program.to_account_info(),
-            transfer_accounts,
-            signer_seeds,
-        );
-        system_program::transfer(transfer_context, amount)?;
+        **ctx.accounts.escrow_job.to_account_info().try_borrow_mut_lamports()? -= amount;
+        **ctx.accounts.freelancer.to_account_info().try_borrow_mut_lamports()? += amount;
         Ok(())
     }
 
@@ -91,22 +77,8 @@ pub mod escrow {
         require!(can_refund, EscrowError::InvalidStatus);
         require!(clock.unix_timestamp > escrow_job.deadline, EscrowError::DeadlineNotPassed);
         let amount = escrow_job.amount;
-        let bump = escrow_job.bump;
-        let client_key = escrow_job.client;
-        let job_id_bytes = escrow_job.job_id.to_le_bytes();
-        let bump_arr = [bump];
-        let seeds: &[&[u8]] = &[b"escrow", client_key.as_ref(), job_id_bytes.as_ref(), &bump_arr];
-        let signer_seeds: &[&[&[u8]]] = &[seeds];
-        let transfer_accounts = system_program::Transfer {
-            from: ctx.accounts.escrow_job.to_account_info(),
-            to: ctx.accounts.client.to_account_info(),
-        };
-        let transfer_context = CpiContext::new_with_signer(
-            ctx.accounts.system_program.to_account_info(),
-            transfer_accounts,
-            signer_seeds,
-        );
-        system_program::transfer(transfer_context, amount)?;
+        **ctx.accounts.escrow_job.to_account_info().try_borrow_mut_lamports()? -= amount;
+        **ctx.accounts.client.to_account_info().try_borrow_mut_lamports()? += amount;
         Ok(())
     }
 
@@ -123,27 +95,13 @@ pub mod escrow {
         let escrow_job = &mut ctx.accounts.escrow_job;
         require!(escrow_job.status == EscrowStatus::Disputed, EscrowError::InvalidStatus);
         let amount = escrow_job.amount;
-        let bump = escrow_job.bump;
-        let client_key = escrow_job.client;
-        let job_id_bytes = escrow_job.job_id.to_le_bytes();
-        let bump_arr = [bump];
-        let seeds: &[&[u8]] = &[b"escrow", client_key.as_ref(), job_id_bytes.as_ref(), &bump_arr];
-        let signer_seeds: &[&[&[u8]]] = &[seeds];
-        let recipient = if pay_freelancer {
-            ctx.accounts.freelancer.to_account_info()
+        if pay_freelancer {
+            **ctx.accounts.escrow_job.to_account_info().try_borrow_mut_lamports()? -= amount;
+            **ctx.accounts.freelancer.to_account_info().try_borrow_mut_lamports()? += amount;
         } else {
-            ctx.accounts.client.to_account_info()
-        };
-        let transfer_accounts = system_program::Transfer {
-            from: ctx.accounts.escrow_job.to_account_info(),
-            to: recipient,
-        };
-        let transfer_context = CpiContext::new_with_signer(
-            ctx.accounts.system_program.to_account_info(),
-            transfer_accounts,
-            signer_seeds,
-        );
-        system_program::transfer(transfer_context, amount)?;
+            **ctx.accounts.escrow_job.to_account_info().try_borrow_mut_lamports()? -= amount;
+            **ctx.accounts.client.to_account_info().try_borrow_mut_lamports()? += amount;
+        }
         Ok(())
     }
 }
